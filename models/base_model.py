@@ -53,12 +53,14 @@ class BaseModel:
     def to_dict(self, save_mode=False):
         """ Returns a dictionary containing all keys/values of
         __dict__ of the instance """
+
+        temp_dict = self.__dict__.copy()
         if "_sa_instance_state" in temp_dict:
             del temp_dict["_sa_instance_state"]
-        temp_dict = self.__dict__.copy()
         temp_dict["__class__"] = self.__class__.__name__
         temp_dict["created_at"] = self.created_at.isoformat()
         temp_dict["updated_at"] = self.updated_at.isoformat()
+
         if save_mode:
             return temp_dict
         return temp_dict.copy()
